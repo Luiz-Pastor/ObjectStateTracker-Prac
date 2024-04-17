@@ -7,18 +7,18 @@ import java.util.function.Predicate;
 public class ObjectStateTracker<O, S> {
     
     //List<S> states = new ArrayList<>();
-    private Map<Predicate<O>, S> states = new TreeMap<>();
+    private Map<S, Predicate<O>> states = new TreeMap<>();
     private S defaultState;
     
     public ObjectStateTracker(S ...states) {
         for (S current : states)
-            this.states.put(null, current);
+            this.states.put(current, null);
         this.defaultState = null;
     }
     
     /*____________________________________________________________________*/
     
-    public Map<Predicate<O>, S> getStates() {
+    public Map<S, Predicate<O>> getStates() {
         return this.states;
     }
     
@@ -28,12 +28,12 @@ public class ObjectStateTracker<O, S> {
     
     /*____________________________________________________________________*/
     
-    public ObjectStateTracker withState(S state, Predicate<O> function) {
-        this.states.put(function, state);
+    public ObjectStateTracker<O,S> withState(S state, Predicate<O> function) {
+        this.states.put(state, function);
         return this;
     }
     
-    public ObjectStateTracker elseState(S state) {
+    public ObjectStateTracker<O, S> elseState(S state) {
         this.defaultState = state;
         return this;
     }
@@ -45,7 +45,7 @@ public class ObjectStateTracker<O, S> {
         
         buffer = "{ ";
         index = 0;
-        for (S current : this.states.values()) {
+        for (S current : this.states.keySet()) {
             buffer += current;
             index++;
             

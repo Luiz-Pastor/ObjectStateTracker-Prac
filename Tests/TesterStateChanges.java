@@ -25,16 +25,14 @@ public class TesterStateChanges {
     }
 
     protected void createRegistrations() {
-        this.regState = new ObjectStateTracker<>(RegistrationState.values());
-        System.out.println(this.regState);
-        System.exit(1);
-        
+        this.regState = new ObjectStateTracker<>(RegistrationState.values());        
         regState.withState(PAYED, r -> r.getAmountPayed() == r.getTotalAmount() && !r.getValidated())
                 .withState(STARTED, r -> r.getAffiliation() == null && !r.getValidated())
                 .withState(FILLED, r -> r.getAffiliation() != null && !r.getValidated())
                 .withState(VALIDATED, r -> r.getAmountPayed() == 0 && r.getValidated())
                 .withState(FINISHED, r -> r.getAmountPayed() == r.getTotalAmount() && r.getValidated())
                 .elseState(REJECTED);
+        System.out.println(this.regState);
         System.exit(1);
         this.annSmith = new Registration("Ann Smith", FULL);
         this.johnDoe = new Registration("John Doe", STUDENT);
