@@ -1,6 +1,7 @@
 package Tests;
 
 import Registration.*;
+import ObjectStateTracker.*;
 
 public class TesterStateChanges {
 
