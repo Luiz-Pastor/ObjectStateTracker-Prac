@@ -32,11 +32,12 @@ public class TesterStateChanges {
                 .withState(VALIDATED, r -> r.getAmountPayed() == 0 && r.getValidated())
                 .withState(FINISHED, r -> r.getAmountPayed() == r.getTotalAmount() && r.getValidated())
                 .elseState(REJECTED);
-        System.out.println(this.regState);
-        System.exit(1);
         this.annSmith = new Registration("Ann Smith", FULL);
         this.johnDoe = new Registration("John Doe", STUDENT);
         this.lisaMartin = new Registration("Lisa Martin", MEMBER);
+        
+        System.out.println(this.regState);
+        System.exit(1);
         //this.regState.addObjects(annSmith, johnDoe, lisaMartin);
     }
 }
