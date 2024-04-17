@@ -1,3 +1,5 @@
+package Registration;
+
 public enum RegistrationKind {
 	FULL (1100), MEMBER (900), STUDENT (450);
 

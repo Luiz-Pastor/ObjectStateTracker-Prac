@@ -1,3 +1,5 @@
+package Registration;
+
 public class Registration {
 	private String name, affiliation;
 	private RegistrationKind kind;
