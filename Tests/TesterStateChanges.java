@@ -19,9 +19,9 @@ public class TesterStateChanges {
     }
 
     protected void changeRegistrations() {
-        /*this.annSmith.setAffiliation("University of Miskatonic"); // now it is filled
+        this.annSmith.setAffiliation("University of Miskatonic"); // now it is filled
         this.johnDoe.pay(STUDENT.getPrice()); // becomes payed
-        this.regState.updateStates();*/
+        this.regState.updateStates();
     }
 
     protected void createRegistrations() {
@@ -36,8 +36,6 @@ public class TesterStateChanges {
         this.johnDoe = new Registration("John Doe", STUDENT);
         this.lisaMartin = new Registration("Lisa Martin", MEMBER);
         
-        System.out.println(this.regState);
-        System.exit(1);
-        //this.regState.addObjects(annSmith, johnDoe, lisaMartin);
+        this.regState.addObjects(annSmith, johnDoe, lisaMartin);
     }
 }
