@@ -6,43 +6,39 @@ import java.util.function.Predicate;
 /*                       <Object , State> */
 public class ObjectStateTracker<O, S> {
     
-    private Map<O, S> objects = new LinkedHashMap<>();
-    private Map<S, Predicate<O>> states = new TreeMap<>();
+    /* Object list */
+    private final Map<O, S> objects = new LinkedHashMap<>();
+    
+    /* State set, state-lambda map and default state*/
+    private final Set<S> states = new TreeSet<>();
+    private final Map<S, Predicate<O>> asignedStates = new LinkedHashMap<>();
     private S defaultState;
     
     public ObjectStateTracker(S ...states) {
-        for (S current : states)
-            this.states.put(current, null);
+        this.states.addAll(Arrays.asList(states));
         this.defaultState = null;
     }
-    
-    /*____________________________________________________________________*/
-    
-    public Map<S, Predicate<O>> getStates() {
-        return this.states;
-    }
-    
-    public S getDefaultState() {
-        return this.defaultState;
-    }
-    
-    /*____________________________________________________________________*/
-    
 
-    
-    public ObjectStateTracker<O,S> withState(S state, Predicate<O> function) {
-        this.states.put(state, function);
+    /*____________________________________________________________________*/
+
+    public ObjectStateTracker<O,S> withState(S state, Predicate<O> function) throws IllegalStateException {
+        if (this.states.contains(state) == false)
+            throw new IllegalStateException();
+        this.asignedStates.put(state, function);
         return this;
     }
     
-    public ObjectStateTracker<O, S> elseState(S state) {
+    public ObjectStateTracker<O, S> elseState(S state) throws IllegalStateException {
+        if (this.states.contains(state) == false)
+            throw new IllegalStateException();
+
         this.defaultState = state;
         return this;
     }
 
     private S getCurrentState(O object) {
-        for (S state : this.states.keySet()) {
-            if (this.states.get(state).test(object) == true)
+        for (S state : this.asignedStates.keySet()) {
+            if (this.asignedStates.get(state).test(object) == true)
                 return state;
         }
         return this.defaultState;
@@ -68,7 +64,7 @@ public class ObjectStateTracker<O, S> {
         
         buffer = "{";       
         /* Print the info of each state */
-        for (S currentState : this.states.keySet()) {
+        for (S currentState : this.states) {
             flag = false;
             buffer += currentState + "=[";
             
