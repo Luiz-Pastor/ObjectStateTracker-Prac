@@ -12,6 +12,7 @@ public class Trajectory<S> {
     
     public Trajectory(S firstState) {
         this.states = new LinkedHashMap<>();
+        this.states.put(firstState, LocalDateTime.now());
     }
     
     /*____________________________________________________________________*/
