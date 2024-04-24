@@ -43,4 +43,16 @@ public class Registration {
 	public void setValidated(boolean b) {
 		this.validated = b;
 	}
+        
+        @Override
+        public boolean equals(Object o) {
+            if (o instanceof Registration == false) return false;
+            Registration compared = (Registration)o;
+            return this.name.equals(compared.name);
+        }
+        
+        @Override
+        public int hashCode() {
+            return this.name.hashCode();
+        }
 }
