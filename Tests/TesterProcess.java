@@ -1,5 +1,9 @@
 package Tests;
 
+import Registration.*;
+import static Registration.RegistrationKind.*;
+import Process.Process;
+
 public class TesterProcess extends TesterTrajectories {
 
     public static void main(String[] args) {
@@ -22,9 +26,7 @@ public class TesterProcess extends TesterTrajectories {
     protected void buildProcess() {
         Process<RegistrationState> regProcess = new Process<>(RegistrationState.values());
         for (Registration r : this.regState) // iterates on all Registrations
-        {
             regProcess.add(this.regState.trajectory(r));
-        }
         System.out.println(regProcess);
     }
 }
