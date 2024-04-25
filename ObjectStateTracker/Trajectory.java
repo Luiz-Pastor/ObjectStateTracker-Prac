@@ -3,7 +3,7 @@ package ObjectStateTracker;
 import java.util.*;
 import java.time.*;
 
-public class Trajectory<S> {
+public class Trajectory<S> implements Iterable<S>{
     private final Map<S, LocalDateTime> states;
     
     public Trajectory() {
@@ -21,10 +21,28 @@ public class Trajectory<S> {
         return this.states;
     }
     
+    /*public Iterator<S> getRoad() {
+        /* Returning an iterator to the set of the states
+        return this.states.keySet().iterator();
+    }
+    
+    public Iterator<Map.Entry<S, LocalDateTime>> getData() {
+        /* Returning an iterator of all the data 
+        return this.states.entrySet().iterator();
+    }*/
+    
+    public Iterator<S> iterator() {
+        return this.states.keySet().iterator();
+    }
+    
     /*____________________________________________________________________*/
         
     public void add(S state) {
         this.states.put(state, LocalDateTime.now());
+    }
+    
+    public S first() {
+        return new ArrayList<S>(this.states.keySet()).get(0);
     }
     
     public S last() {
