@@ -28,8 +28,7 @@ public class TesterProcess extends TesterTrajectories {
     protected void buildProcess() {
         Process<RegistrationState> regProcess = new Process<>(RegistrationState.values());
         for (Registration r : this.regState) // iterates on all Registrations
-            System.out.println("=> " + r);
-            //regProcess.add(this.regState.trajectory(r));
+            regProcess.add(this.regState.trajectory(r));
         System.out.println(regProcess);
     }
 }
