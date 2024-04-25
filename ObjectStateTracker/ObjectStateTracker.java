@@ -4,8 +4,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /*                       <Object , State> */
-public class ObjectStateTracker<O, S> {
-
+public class ObjectStateTracker<O, S> implements Iterable<O> {
     /* Object list, with the object and the list of states with his time */
     private final Map<O, Trajectory<S>> objects = new LinkedHashMap<>();
 
@@ -21,18 +20,23 @@ public class ObjectStateTracker<O, S> {
 
     /*____________________________________________________________________*/
     public ObjectStateTracker<O, S> withState(S state, Predicate<O> function) throws IllegalStateException {
+        /* If the state isn't exist on the started list, throw an error */
         if (this.states.contains(state) == false) {
             throw new IllegalStateException();
         }
+        
+        /* Add the state and his action */
         this.asignedStates.put(state, function);
         return this;
     }
 
     public ObjectStateTracker<O, S> elseState(S state) throws IllegalStateException {
+        /* If the state isn't exist on the started list, throw an error */
         if (this.states.contains(state) == false) {
             throw new IllegalStateException();
         }
 
+        /* Set the state as default */
         this.defaultState = state;
         return this;
     }
@@ -47,32 +51,36 @@ public class ObjectStateTracker<O, S> {
     }
 
     public void addObjects(O... objects) {
-        
         /* Adding an entry on the list for each new object, setting an initial state */
         for (O currentObject : objects) {
             this.objects.put(currentObject, new Trajectory<>(this.getCurrentState(currentObject)));
         }
     }
 
-    /*____________________________________________________________________*/
     public void updateStates() {
         for (O currentObject : this.objects.keySet()) {
             /* Get the new state */
             S newState = this.getCurrentState(currentObject);
-            
+
             /* Get the previous list of states */
             Trajectory<S> objectTrajectory = this.objects.get(currentObject);
-            
+
             /* Check the last state, if it is the same than the new state, continue with the next element */
             S last = objectTrajectory.last();
             if (last == null || last == newState) {
                 continue;
             }
 
-            /* If it is a new state, add the state to the object trajectory */
+            /* If it is a new state, add the state to the object trajectory, adding it to the reference getted */
             objectTrajectory.add(newState);
-            this.objects.put(currentObject, objectTrajectory); /* TODO: se puede quitar? modificando la referencia en si */
+            //this.objects.put(currentObject, objectTrajectory);
         }
+    }
+
+    /*____________________________________________________________________*/
+    @Override
+    public Iterator<O> iterator() {
+        return this.objects.keySet().iterator();
     }
 
     @Override
@@ -120,7 +128,7 @@ public class ObjectStateTracker<O, S> {
 
     public Trajectory<S> trajectory(O o) {
         Map.Entry<O, Trajectory<S>> searchEntry = null;
-        
+
         /* Search the entry of the specified object */
         for (Map.Entry<O, Trajectory<S>> currentEntry : this.objects.entrySet()) {
             if (currentEntry.getKey().equals(o)) {
