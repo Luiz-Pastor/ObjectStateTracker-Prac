@@ -27,7 +27,7 @@ public class Process<S> {
         }
         
         for (S stateToSave : values) {
-            Map<S, Integer> connections = new HashMap<>();
+            Map<S, Integer> connections = new TreeMap<>();
             
             for (S stateToAdd : values) {
                 if (stateToSave != stateToAdd)
@@ -39,8 +39,30 @@ public class Process<S> {
     }
     
     
-    public void add(Trajectory<S> trayectory) {
+    public void add(Trajectory<S> trajectory) {
+        Integer count;
         
+        /* Get the first element */
+        S firstState = trajectory.first();
+        count = this.statesBegin.get(firstState);
+        this.statesBegin.put(firstState, count + 1);
+        
+        /* Get the the last element */
+        S lastState = trajectory.last();
+        count = this.statesFinal.get(lastState);
+        this.statesFinal.put(lastState, count + 1);
+        
+        /* TODO: Check the road of the states */
+        S beforeState = null;
+        for (S currentState : trajectory) {
+            if (beforeState != null) {
+                Map<S, Integer> nextConnectionState = this.statesConnection.get(beforeState);
+                Integer roadCount = nextConnectionState.get(currentState);
+                nextConnectionState.put(currentState, roadCount + 1);
+            }
+            
+            beforeState = currentState;
+        }
     }
     
     @Override
@@ -48,13 +70,20 @@ public class Process<S> {
         String buffer = "";
         
         for (S printedState : this.states) {
-            buffer += printedState + "():\n";
-            
-            
+            buffer += printedState +
+                    "(initial " + this.statesBegin.get(printedState) +
+                    " times, final " + this.statesFinal.get(printedState) + " times):\n";
+
             for (Map.Entry<S, Integer> connections : this.statesConnection.get(printedState).entrySet()) {
-                buffer += "\t# " + connections + " #\n";
+                //buffer += "\t# " + connections + " #\n";
+                
+                S roadState = connections.getKey();
+                Integer roadsCount = connections.getValue();
+                if (roadsCount != 0)
+                    buffer += "  to state " + roadState + ": " + roadsCount + " times\n";
             }
         }
         return buffer;
     }
 }
+
