@@ -1,0 +1,81 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>910</x><y>850</y><w>570</w><h>230</h></coordinates><panel_attributes>ObjectStateTracker
+--
+- objects: Map&lt;O, Trajectory&lt;S&gt; &gt;
+- states: Set&lt;S&gt;
+- asignedStates: Map&lt;S, Predicate&lt;O&gt; &gt;
+--
++ withState(state S, Predicate&lt;O&gt;) : ObjectStateTracker&lt;O,S&gt;
++ elseState(state S): ObjectStateTracker&lt;O,S&gt;
+- getCurrentState(object O): S
++ addObjects(O ...objects): void
++ updateStates(): void
++ update(object: Observable, arg: Object): void
++ iterator(): Iterator&lt;O&gt;
++ toString(): String
++ trajectory(o O):Trajectory&lt;S&gt;
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>280</x><y>370</y><w>250</w><h>190</h></coordinates><panel_attributes>Registration
+--
+- name: String
+- affiliation: String
+- kind: RegistrationKind
+- amountPayed: int
+- validated: boolean
+- observers: List&lt;Observer&gt;
+--
+- updateObserver(o: Observable): void
++ withTracker(observer: Observer):void
++ equals(o Object): boolean
++ hashCode(): int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>720</x><y>360</y><w>210</w><h>110</h></coordinates><panel_attributes>&lt;&lt;Enum&gt;&gt;
+RegistrationKind
+--
+-price: int
+-FULL(1100)
+-MEMBER(900)
+-STUDENT(450)
+
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>290</x><y>690</y><w>210</w><h>140</h></coordinates><panel_attributes>&lt;&lt;Enum&gt;&gt;
+RegistrationState
+--
+-STARTED
+-FILLED
+-VALIDATED
+-PAYED
+-FINISHED
+-REJECTED
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1060</x><y>350</y><w>280</w><h>150</h></coordinates><panel_attributes>Process
+--
+- states: Set&lt;S&gt;
+- statesBegin: Map&lt;S, Integer&gt;
+- statesFinal: Map&lt;S, Integer&gt;
+- stattesConnection: Map&lt;S, Map&lt;S, Integer&gt; &gt;
+--
++add(trajectory: Trajectory&lt;S&gt;)
++toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1500</x><y>360</y><w>280</w><h>140</h></coordinates><panel_attributes>Trajectory
+--
+- states: Map&lt;S, LocalDateTime&gt;
+
+--
++ iterator(): Iterator&lt;S&gt;
++ first(): S 
++ last(): S
++ add(state: S): void
++ toString(): String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1530</x><y>200</y><w>210</w><h>50</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Iterable
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1630</x><y>240</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1090</x><y>640</y><w>210</w><h>50</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Observer
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>240</y><w>30</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>300</x><y>200</y><w>210</w><h>50</h></coordinates><panel_attributes>&lt;&lt;interface&gt;&gt;
+Observable
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1190</x><y>680</y><w>30</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>400</y><w>220</w><h>40</h></coordinates><panel_attributes>possible types &gt;</panel_attributes><additional_attributes>200;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>550</y><w>130</w><h>160</h></coordinates><panel_attributes>possible states v</panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>1470</x><y>490</y><w>320</w><h>510</h></coordinates><panel_attributes>lt=&lt;-
+Trajectory of the objects</panel_attributes><additional_attributes>170;10;170;490;10;490</additional_attributes></element><element><id>Relation</id><coordinates><x>1330</x><y>410</y><w>190</w><h>40</h></coordinates><panel_attributes> Administrates trajectories &gt;</panel_attributes><additional_attributes>170;20;10;20</additional_attributes></element></diagram>
