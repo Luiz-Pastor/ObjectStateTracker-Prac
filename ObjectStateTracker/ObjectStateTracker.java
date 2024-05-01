@@ -24,7 +24,7 @@ public class ObjectStateTracker<O extends Observable, S> implements Iterable<O>,
         if (this.states.contains(state) == false) {
             throw new IllegalStateException();
         }
-        
+
         /* Add the state and his action */
         this.asignedStates.put(state, function);
         return this;
@@ -76,7 +76,7 @@ public class ObjectStateTracker<O extends Observable, S> implements Iterable<O>,
             //this.objects.put(currentObject, objectTrajectory);
         }
     }
-    
+
     @Override
     public void update(Observable object, Object arg) {
         this.updateStates();

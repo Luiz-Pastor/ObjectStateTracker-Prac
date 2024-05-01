@@ -25,7 +25,7 @@ public class TesterStateChanges {
     }
 
     protected void createRegistrations() {
-        this.regState = new ObjectStateTracker<>(RegistrationState.values());        
+        this.regState = new ObjectStateTracker<>(RegistrationState.values());
         regState.withState(PAYED, r -> r.getAmountPayed() == r.getTotalAmount() && !r.getValidated())
                 .withState(STARTED, r -> r.getAffiliation() == null && !r.getValidated())
                 .withState(FILLED, r -> r.getAffiliation() != null && !r.getValidated())
@@ -35,7 +35,7 @@ public class TesterStateChanges {
         this.annSmith = new Registration("Ann Smith", FULL);
         this.johnDoe = new Registration("John Doe", STUDENT);
         this.lisaMartin = new Registration("Lisa Martin", MEMBER);
-        
+
         this.regState.addObjects(annSmith, johnDoe, lisaMartin);
     }
 }
