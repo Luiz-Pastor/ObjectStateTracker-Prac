@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.function.Predicate;
 
 /*                       <Object , State> */
-public class ObjectStateTracker<O, S> implements Iterable<O> {
+public class ObjectStateTracker<O extends Observable, S> implements Iterable<O>, Observer {
     /* Object list, with the object and the list of states with his time */
     private final Map<O, Trajectory<S>> objects = new LinkedHashMap<>();
 
@@ -75,6 +75,11 @@ public class ObjectStateTracker<O, S> implements Iterable<O> {
             objectTrajectory.add(newState);
             //this.objects.put(currentObject, objectTrajectory);
         }
+    }
+    
+    @Override
+    public void update(Observable object, Object arg) {
+        this.updateStates();
     }
 
     /*____________________________________________________________________*/
