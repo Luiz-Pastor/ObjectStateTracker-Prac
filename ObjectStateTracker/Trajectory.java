@@ -7,6 +7,8 @@ import java.time.*;
  * Represents a trajectory of states.
  *
  * @param <S> the type of the states in the trajectory
+ * 
+ * @author Gonzalo Jiménez and Luis Pastor
  */
 public class Trajectory<S> implements Iterable<S> {
 
