@@ -3,6 +3,13 @@ package Process;
 import java.util.*;
 import ObjectStateTracker.*;
 
+/**
+ * Represents a process that tracks states and connections between them.
+ *
+ * @param <S> the type of states in the process
+ *
+ * @author Gonzalo Jiménez and Luis Pastor
+ */
 public class Process<S> {
 
     private final Set<S> states = new TreeSet<>();
@@ -10,11 +17,10 @@ public class Process<S> {
     private final Map<S, Integer> statesFinal = new HashMap<>();
     private final Map<S, Map<S, Integer>> statesConnection = new HashMap<>();
 
-    /*
-     * -> Save states. For each states
-     *      · Save the times that it is the initial state
-     *      · Save the times that it is the final state
-     *      · Which state is going to go, and how many times
+    /**
+     * Constructs a new Process object with the given states.
+     *
+     * @param values the states to be added to the process
      */
     public Process(S... values) {
         /* Add the states to the set */
@@ -39,6 +45,11 @@ public class Process<S> {
         }
     }
 
+    /**
+     * Adds a trajectory to the process.
+     *
+     * @param trajectory the trajectory to be added
+     */
     public void add(Trajectory<S> trajectory) {
         Integer count;
 
@@ -65,6 +76,11 @@ public class Process<S> {
         }
     }
 
+    /**
+     * Returns a string representation of the process.
+     *
+     * @return a string representation of the process
+     */
     @Override
     public String toString() {
         String buffer = "";
