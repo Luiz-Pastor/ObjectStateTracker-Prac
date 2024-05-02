@@ -2,9 +2,7 @@ package Tests;
 
 import Process.Process;
 import Registration.*;
-import static Registration.RegistrationState.*;
 import static Registration.RegistrationKind.*;
-import ObjectStateTracker.*;
 
 public class TesterProcess extends TesterTrajectories {
 
