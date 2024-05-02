@@ -5,7 +5,21 @@ package Registration;
  * an event. Each registration kind has a corresponding price.
  */
 public enum RegistrationKind {
-    FULL(1100), MEMBER(900), STUDENT(450);
+    
+    /**
+     * Full type
+     */
+    FULL(1100),
+    
+    /**
+     * Member type
+     */
+    MEMBER(900),
+    
+    /**
+     * Student type
+     */
+    STUDENT(450);
 
     private int price;
 
