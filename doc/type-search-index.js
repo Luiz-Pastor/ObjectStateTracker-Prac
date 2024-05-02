@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ObjectStateTracker","l":"ObjectStateTracker"},{"p":"Process","l":"Process"},{"p":"Registration","l":"Registration"},{"p":"Registration","l":"RegistrationKind"},{"p":"Registration","l":"RegistrationState"},{"p":"ObjectStateTracker","l":"Trajectory"}];updateSearchResults();
